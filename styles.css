@@ -1,0 +1,23 @@
+body {
+    position: relative;
+    width:100%;
+    height:100vh;
+   font-family: sans-serif;
+
+    background:linear-gradient(#1F2B38, rgba(0,128,128,0.4)),
+    url('https://plus.unsplash.com/premium_photo-1733259834058-e61e2d794897?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+}
+
+.overlay{
+    background-color: #111820;
+    min-width: 100vh;
+    
+}
+.navigation-bar{
+    background-color: #1F2B38;
+    
+}
+.navigation-bar a{
+color: #f5f5f5;
+
+}
