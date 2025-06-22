@@ -8,7 +8,9 @@ body {
     url('https://plus.unsplash.com/premium_photo-1733259834058-e61e2d794897?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
     padding:0;
     margin:0;
+   
 }
+
 
 .overlay{
     background-color: #182433;
@@ -49,5 +51,82 @@ text-decoration: none;
 }
 .navigation-bar a:hover{
     transform:translate3d(0,0,-5px);
-    color:#00FFAB;
+    color:#3A5169;
+}
+
+.button {
+  background-color: #ff9900;
+  color: white;
+  padding: 0.5rem ;
+  box-sizing: border-box;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #e68a00;
+}
+
+/* Section 1 */
+.section1 {
+  padding: 3rem 1rem;
+  background-color: #1e2e41;
+  
+}
+.section1-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.section1-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.section1-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #00E0FF;
+  text-shadow:
+  
+   0 0 12px  #3A5169,  /* cyan glow */
+        /* stronger cyan */
+      /* deep charcoal outer glow */
+    0 0 60px #222831;      /* even softer charcoal */
+}
+
+
+.section1-text p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color:  #3A5169;
+}
+
+.section1-image {
+  flex: 1;
+  text-align: center;
+}
+
+.section1-image img {
+  width: 380px;
+
+  height:298px;
+  border-radius: 9px;
+  box-shadow: 0 0 24px 8px   #3A5169,
+    0 0 10px 1px #00E0FF;
+  
+}
+
+.Search-bar{
+    display:block;
+    align-items: center;
+
+
 }
