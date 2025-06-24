@@ -2,7 +2,7 @@ body {
     position: relative;
     width:100%;
     height:100vh;
-   font-family: 'orbitron',sans-serif;
+   font-family: 'Electrolize', sans-serif;
 
     background:linear-gradient(#1F2B38, rgba(0,128,128,0.4)),
     url('https://plus.unsplash.com/premium_photo-1733259834058-e61e2d794897?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
@@ -217,4 +217,110 @@ text-decoration: none;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
   color:  #3A5169;
+}
+
+.section-3 {
+  padding: 2rem 1rem;
+  text-align: center;
+  
+}
+
+.section-3 h3{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #00E0FF;
+}
+
+.section-3 h4{
+  font-size: 1.7rem;
+  margin-bottom: 0.5rem;
+  color: whitesmoke;
+}
+.section-3 h5{
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #00E0FF;
+}
+
+.section-3 p {
+  font-size: 1.0rem;
+  color: #f4decb;
+}
+
+/* Cards Row */
+.cards-row {
+  display: grid;
+
+  justify-content: center;
+  gap: 2.8rem;
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr;/*for side by side*/
+  grid-template-rows: auto auto;
+  align-items: start;
+}
+
+
+.Card-container {
+  background-color:#1e2e41;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.Card-container:hover {
+  transform: translateY(-5px);
+}
+
+
+
+.Card1,
+.Card2,
+.Card3 {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.Card1 h3,
+.Card2 h4,
+.Card3 h5 {
+  margin-bottom: 0.5rem;
+}
+
+.Card1 p,
+.Card2 p,
+.Card3 p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.button2{
+    background-color: transparent;
+  color: white;
+  padding: 0.5rem ;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+}
+.button2:hover{
+   background-color:#00FFAB;
+  border: 2px solid  #00CCFF;  /* neon teal-green */
+
+  /* Glow effect */
+  box-shadow: 0 0 20px #00FFAB, 0 0 40px #0066FF,
+
+  0 0 60px #00CCFF;
+
+}
+
+.Card-container ul{
+  list-style: none;
 }
