@@ -1,13 +1,15 @@
 body {
     position: relative;
     width:100%;
-    height:100vh;
+    min-height:100vh;
    font-family: 'Electrolize', sans-serif;
 
     background:linear-gradient(#1F2B38, rgba(0,128,128,0.4)),
     url('https://plus.unsplash.com/premium_photo-1733259834058-e61e2d794897?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
     padding:0;
     margin:0;
+  
+
    
    
 }
@@ -22,18 +24,16 @@ html{
 
 .overlay{
     background-color: #182433;
-    min-width: 100vh;
+    min-height: 100vh;
     position:relative;
-  
-    width:70vw;
-    height:100vh;
+    width:80vw;
+ max-width: 1000px;
+ margin:0 auto;
     z-index: 1;
     justify-content: center;
   overflow: auto;
     padding:30px;
-    left: 175px;
-top:40px; /*when position fixed margins do not really move */
-right: 40px;
+    
  border: 2px solid  #00CCFF;  /* neon teal-green */
 
   /* Glow effect */
@@ -321,6 +321,139 @@ text-decoration: none;
 
 }
 
-.Card-container ul{
-  list-style: none;
+
+
+
+.section-4{
+  padding: 2rem 1rem;
+  text-align: center;
+  
 }
+
+.section-4 h3{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #00E0FF;
+}
+
+.section-4 h4{
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: whitesmoke;
+}
+
+
+.section-4 p {
+  font-size: 1.0rem;
+  color: #f4decb;
+}
+
+
+.Card4,
+.Card5,
+.Card6 {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.Card4 h4,
+.Card5 h4,
+.Card6 h4 {
+  margin-bottom: 0.5rem;
+}
+
+.Card4 p,
+.Card5 p,
+.Card6 p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+
+.Card5-img img,
+.Card6-img img{
+    width: 100%;
+  height: 200px;
+  object-fit: cover;
+  
+}
+.Card4-img img{
+  width:100%;
+  height:180px;
+  object-fit: cover;
+}
+
+.Card4,
+.Card5,
+.Card6 {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+/*about us page*/
+
+.About-us-page {
+  padding: 9rem 1rem;
+  border-top: whitesmoke;
+  border-style:groove;
+  background-color: #1e2e41;
+ 
+  display: flex;
+  justify-content: center;
+  transition: box-shadow 0.4s, border-color 0.4s;
+}
+
+.About-us-page:hover{
+   border-color: #00FFAB; /* or any neon color you like */
+  box-shadow: 0 0 20px #00FFAB, 0 0 40px #00CCFF, 0 0 60px #00E0FF;
+}
+.about-us-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.about-ev,
+.about-links,
+.about-services
+ {
+  flex: 1;
+  min-width: 200px;
+  
+}
+
+.about-ev h6,
+.about-links h6,
+.about-services h6,
+.about-location h6 {
+  color: #00FFAB;
+  margin-bottom: 1rem;
+  font-size:1rem;
+  top: 40px;
+}
+
+.about-ev p {
+  color: white;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.about-links a,
+.about-services a,
+.about-brand a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.about-links a:hover,
+.about-services a:hover,
+.about-ev a:hover {
+  color: #00E0FF;
+}
+
