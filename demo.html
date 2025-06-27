@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerHub - EV Charging Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'electric-blue': '#00d4ff',
+                        'dark-blue': '#0a1628',
+                        'neon-green': '#39ff14'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #2d3748 100%);
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .charging-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        .booking-form {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-dark-blue/95 backdrop-blur-md border-b border-electric-blue/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-bolt text-electric-blue text-2xl"></i>
+                    <span class="text-2xl font-bold">PowerHub</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-electric-blue transition-colors">Home</a>
+                    <a href="#stations" class="hover:text-electric-blue transition-colors">Stations</a>
+                    <a href="#booking" class="hover:text-electric-blue transition-colors">Book Now</a>
+                    <a href="#about" class="hover:text-electric-blue transition-colors">About</a>
+                    <a href="#contact" class="hover:text-electric-blue transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-electric-blue/10 to-transparent"></div>
+        <div class="container mx-auto px-4 z-10 relative hero-content">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                        <span class="block">Power Your</span>
+                        <span class="block text-electric-blue">Electric</span> 
+                        <span class="block">Journey</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Find, book, and charge at premium EV stations across the city. 
+                        Fast, reliable, and eco-friendly charging solutions for the modern driver.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="scrollToBooking()" class="bg-electric-blue text-dark-blue px-8 py-4 rounded-lg font-semibold hover-glow transition-all">
+                            <i class="fas fa-search mr-2"></i>Find Stations
+                        </button>
+                        <button class="border border-electric-blue text-electric-blue px-8 py-4 rounded-lg font-semibold hover:bg-electric-blue hover:text-dark-blue transition-all">
+                            <i class="fas fa-play mr-2"></i>Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative z-10">
+                        <div class="bg-gradient-to-br from-electric-blue/20 to-purple-500/20 rounded-3xl p-8 glow-effect">
+                            <div class="text-center space-y-6">
+                                <i class="fas fa-car-battery text-6xl text-electric-blue charging-animation"></i>
+                                <h3 class="text-2xl font-bold">Quick Stats</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-white/10 rounded-lg p-4">
+                                        <div class="text-3xl font-bold text-electric-blue">250+</div>
+                                        <div class="text-sm text-gray-300">Charging Points</div>
+                                    </div>
+                                    <div class="bg-white/10 rounded-lg p-4">
+                                        <div class="text-3xl font-bold text-neon-green">24/7</div>
+                                        <div class="text-sm text-gray-300">Available</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Station Finder -->
+    <section id="stations" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Find Charging Stations</h2>
+                <p class="text-gray-400 text-lg">Locate the nearest charging station in your area</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-700 rounded-2xl p-8 glow-effect">
+                    <div class="grid md:grid-cols-4 gap-4 mb-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Location</label>
+                            <div class="relative">
+                                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-electric-blue"></i>
+                                <input type="text" id="locationInput" placeholder="Enter city or area" 
+                                       class="w-full pl-10 pr-4 py-3 bg-gray-600 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Charger Type</label>
+                            <select class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                <option>All Types</option>
+                                <option>Fast Charging</option>
+                                <option>Super Fast</option>
+                                <option>Standard</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Availability</label>
+                            <select class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                <option>Available Now</option>
+                                <option>Available Today</option>
+                                <option>Any Time</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button onclick="searchStations()" class="w-full bg-electric-blue text-dark-blue py-3 rounded-lg font-semibold hover-glow transition-all">
+                                <i class="fas fa-search mr-2"></i>Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Station Results -->
+            <div id="stationResults" class="max-w-6xl mx-auto mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Station cards will be populated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Book Your Charging Slot</h2>
+                <p class="text-gray-400 text-lg">Reserve your spot and charge worry-free</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="booking-form rounded-3xl p-8 border border-electric-blue/20">
+                    <form id="bookingForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Selected Station</label>
+                                <select id="stationSelect" class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                    <option>Select a station</option>
+                                    <option>PowerHub Mall Road - Fast Charging</option>
+                                    <option>PowerHub City Center - Super Fast</option>
+                                    <option>PowerHub Airport - Ultra Fast</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Vehicle Type</label>
+                                <select class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                    <option>Select vehicle</option>
+                                    <option>Tesla Model 3</option>
+                                    <option>Tata Nexon EV</option>
+                                    <option>MG ZS EV</option>
+                                    <option>Hyundai Kona</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Date</label>
+                                <input type="date" class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Time Slot</label>
+                                <select class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                    <option>Select time</option>
+                                    <option>06:00 - 08:00</option>
+                                    <option>08:00 - 10:00</option>
+                                    <option>10:00 - 12:00</option>
+                                    <option>12:00 - 14:00</option>
+                                    <option>14:00 - 16:00</option>
+                                    <option>16:00 - 18:00</option>
+                                    <option>18:00 - 20:00</option>
+                                    <option>20:00 - 22:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Duration (hours)</label>
+                                <select class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                    <option>1 hour</option>
+                                    <option>2 hours</option>
+                                    <option>3 hours</option>
+                                    <option>4 hours</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Estimated Cost</label>
+                                <div class="flex items-center px-4 py-3 bg-gray-700 rounded-lg">
+                                    <i class="fas fa-rupee-sign text-neon-green mr-2"></i>
+                                    <span id="estimatedCost" class="text-neon-green font-bold">₹450</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Contact Information</label>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <input type="text" placeholder="Full Name" class="px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                                <input type="tel" placeholder="Phone Number" class="px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-electric-blue to-blue-500 text-dark-blue py-4 rounded-lg font-bold text-lg hover-glow transition-all">
+                            <i class="fas fa-calendar-check mr-2"></i>Book Charging Slot
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Why Choose PowerHub?</h2>
+                <p class="text-gray-400 text-lg">Premium features for the modern EV driver</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-700 rounded-2xl p-6 card-hover glow-effect">
+                    <div class="text-electric-blue text-4xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Fast Charging</h3>
+                    <p class="text-gray-400">Ultra-fast charging stations with up to 150kW power output</p>
+                </div>
+                
+                <div class="bg-gray-700 rounded-2xl p-6 card-hover glow-effect">
+                    <div class="text-neon-green text-4xl mb-4">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">24/7 Available</h3>
+                    <p class="text-gray-400">Round-the-clock service with automated booking system</p>
+                </div>
+                
+                <div class="bg-gray-700 rounded-2xl p-6 card-hover glow-effect">
+                    <div class="text-purple-400 text-4xl mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Smart Booking</h3>
+                    <p class="text-gray-400">Easy mobile booking with real-time availability updates</p>
+                </div>
+                
+                <div class="bg-gray-700 rounded-2xl p-6 card-hover glow-effect">
+                    <div class="text-yellow-400 text-4xl mb-4">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Eco-Friendly</h3>
+                    <p class="text-gray-400">100% renewable energy powered charging stations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <h2 class="text-4xl font-bold">Leading the EV Revolution</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        PowerHub is at the forefront of India's electric vehicle charging infrastructure. 
+                        With over 250 charging points across major cities, we're making electric mobility 
+                        accessible, convenient, and reliable for everyone.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-electric-blue">250+</div>
+                            <div class="text-gray-400">Charging Points</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-neon-green">50+</div>
+                            <div class="text-gray-400">Cities Covered</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400">10K+</div>
+                            <div class="text-gray-400">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-400">99.9%</div>
+                            <div class="text-gray-400">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-electric-blue/20 to-purple-500/20 rounded-3xl p-8 glow-effect">
+                        <div class="text-center space-y-6">
+                            <i class="fas fa-charging-station text-6xl text-electric-blue"></i>
+                            <h3 class="text-2xl font-bold">Smart Charging Network</h3>
+                            <p class="text-gray-300">
+                                Our intelligent network optimizes charging speeds and manages load 
+                                distribution for maximum efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-gray-400 text-lg">Have questions? We're here to help!</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-electric-blue/20 p-3 rounded-lg">
+                            <i class="fas fa-phone text-electric-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Phone</h3>
+                            <p class="text-gray-400">+91 999999999</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-electric-blue/20 p-3 rounded-lg">
+                            <i class="fas fa-envelope text-electric-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Email</h3>
+                            <p class="text-gray-400">support@powerhub.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-electric-blue/20 p-3 rounded-lg">
+                            <i class="fas fa-map-marker-alt text-electric-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Address</h3>
+                            <p class="text-gray-400">123 Tech Park, Jaipur, Rajasthan 302001</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Your Name" class="px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                        <input type="email" placeholder="Your Email" class="px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                    </div>
+                    <input type="text" placeholder="Subject" class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none">
+                    <textarea rows="4" placeholder="Your Message" class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-electric-blue outline-none"></textarea>
+                    <button type="submit" class="w-full bg-electric-blue text-dark-blue py-3 rounded-lg font-semibold hover-glow transition-all">
+                        <i class="fas fa-paper-plane mr-2"></i>Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-blue py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-bolt text-electric-blue text-2xl"></i>
+                        <span class="text-2xl font-bold">PowerHub</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Leading India's transition to sustainable mobility with smart charging solutions.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Fast Charging</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Station Booking</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Mobile App</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Fleet Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Track Booking</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Report Issue</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 PowerHub. All rights reserved. | Powering the future of mobility.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample station data
+        const stationData = [
+            {
+                name: "PowerHub Mall Road",
+                location: "Mall Road, Jaipur",
+                type: "Fast Charging",
+                available: 3,
+                total: 4,
+                price: "₹12/kWh",
+                rating: 4.8,
+                distance: "0.8 km"
+            },
+            {
+                name: "PowerHub City Center",
+                location: "City Center, Jaipur",
+                type: "Super Fast",
+                available: 2,
+                total: 3,
+                price: "₹15/kWh",
+                rating: 4.9,
+                distance: "1.2 km"
+            },
+            {
+                name: "PowerHub Airport",
+                location: "Airport Road, Jaipur",
+                type: "Ultra Fast",
+                available: 1,
+                total: 2,
+                price: "₹18/kWh",
+                rating: 4.7,
+                distance: "5.2 km"
+            },
+            {
+                name: "PowerHub Tech Park",
+                location: "Malviya Nagar, Jaipur",
+                type: "Fast Charging",
+                available: 4,
+                total: 5,
+                price: "₹12/kWh",
+                rating: 4.6,
+                distance: "2.1 km"
+            },
+            {
+                name: "PowerHub Shopping Complex",
+                location: "C-Scheme, Jaipur",
+                type: "Super Fast",
+                available: 0,
+                total: 3,
+                price: "₹15/kWh",
+                rating: 4.5,
+                distance: "1.8 km"
+            },
+            {
+                name: "PowerHub Metro Station",
+                location: "Durgapura, Jaipur",
+                type: "Fast Charging",
+                available: 2,
+                total: 3,
+                price: "₹12/kWh",
+                rating: 4.4,
+                distance: "3.5 km"
+            }
+        ];
+
+        // Smooth scrolling function
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search stations function
+        function searchStations() {
+            const location = document.getElementById('locationInput').value;
+            const resultsContainer = document.getElementById('stationResults');
+            
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+            
+            // Filter stations based on location (simple implementation)
+            let filteredStations = stationData;
+            if (location) {
+                filteredStations = stationData.filter(station => 
+                    station.location.toLowerCase().includes(location.toLowerCase())
+                );
+            }
+            
+            // Display results
+            filteredStations.forEach(station => {
+                const stationCard = createStationCard(station);
+                resultsContainer.appendChild(stationCard);
+            });
+            
+            if (filteredStations.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-search text-4xl text-gray-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">No stations found</h3>
+                        <p class="text-gray-400">Try adjusting your search criteria</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Create station card function
+        function createStationCard(station) {
+            const card = document.createElement('div');
+            card.className = 'bg-gray-700 rounded-2xl p-6 card-hover glow-effect';
+            
+            const availabilityColor = station.available > 0 ? 'text-neon-green' : 'text-red-400';
+            const availabilityText = station.available > 0 ? 'Available' : 'Full';
+            
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">${station.name}</h3>
+                        <p class="text-gray-400 text-sm">${station.location}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex items-center mb-1">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-sm">${station.rating}</span>
+                        </div>
+                        <div class="text-sm text-gray-400">${station.distance}</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-bolt text-electric-blue"></i>
+                        <span class="text-sm">${station.type}</span>
+                    </div>
+                    <div class="text-electric-blue font-semibold">${station.price}</div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="${availabilityColor}">
+                        <i class="fas fa-circle text-xs mr-2"></i>
+                        ${station.available}/${station.total} ${availabilityText}
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        <i class="fas fa-clock mr-1"></i>
+                        24/7 Open
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <button onclick="selectStation('${station.name}')" class="flex-1 bg-electric-blue text-dark-blue py-2 px-4 rounded-lg font-semibold hover-glow transition-all">
+                        <i class="fas fa-calendar-check mr-2"></i>Book Now
+                    </button>
+                    <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all">
+                        <i class="fas fa-directions"></i>
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Select station function
+        function selectStation(stationName) {
+            const stationSelect = document.getElementById('stationSelect');
+            // Find the option with matching text and select it
+            for (let i = 0; i < stationSelect.options.length; i++) {
+                if (stationSelect.options[i].text.includes(stationName)) {
+                    stationSelect.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Scroll to booking section
+            scrollToBooking();
+            
+            // Show success message
+            showNotification('Station selected! Please complete your booking details.', 'success');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg font-semibold transform transition-all duration-300 translate-x-full`;
+            
+            if (type === 'success') {
+                notification.className += ' bg-neon-green text-dark-blue';
+            } else if (type === 'error') {
+                notification.className += ' bg-red-500 text-white';
+            } else {
+                notification.className += ' bg-electric-blue text-dark-blue';
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Form submission handler
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const stationSelect = document.getElementById('stationSelect');
+            
+            if (stationSelect.selectedIndex === 0) {
+                showNotification('Please select a charging station', 'error');
+                return;
+            }
+            
+            // Simulate booking process
+            showNotification('Processing your booking...', 'info');
+            
+            setTimeout(() => {
+                showNotification('Booking confirmed! You will receive a confirmation SMS shortly.', 'success');
+                
+                // Reset form
+                this.reset();
+                
+                // Show booking confirmation modal
+                showBookingConfirmation();
+            }, 2000);
+        });
+
+        // Show booking confirmation modal
+        function showBookingConfirmation() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+            modal.innerHTML = `
+                <div class="bg-gray-800 rounded-2xl p-8 max-w-md mx-4 glow-effect">
+                    <div class="text-center">
+                        <div class="text-neon-green text-6xl mb-4">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Booking Confirmed!</h3>
+                        <p class="text-gray-400 mb-6">Your charging slot has been reserved successfully.</p>
+                        
+                        <div class="bg-gray-700 rounded-lg p-4 mb-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400">Booking ID:</span>
+                                <span class="font-semibold">#PH${Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400">Station:</span>
+                                <span class="font-semibold">PowerHub Mall Road</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400">Amount:</span>
+                                <span class="font-semibold text-neon-green">₹450</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="closeModal()" class="w-full bg-electric-blue text-dark-blue py-3 rounded-lg font-semibold hover-glow transition-all">
+                            <i class="fas fa-times mr-2"></i>Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal function
+            window.closeModal = function() {
+                document.body.removeChild(modal);
+                delete window.closeModal;
+            };
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial stations
+            searchStations();
+            
+            // Set minimum date for booking to today
+            const dateInput = document.querySelector('input[type="date"]');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.min = today;
+                dateInput.value = today;
+            }
+            
+            // Add parallax effect to hero section (removed problematic parallax)
+            window.addEventListener('scroll', function() {
+                // Parallax effect removed to prevent text displacement
+                // You can add other scroll effects here if needed
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.md\\:hidden button');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                // Toggle mobile menu (you can implement this based on your needs)
+                showNotification('Mobile menu functionality can be implemented here', 'info');
+            });
+        }
+    </script>
+</body>
+</html>
