@@ -1,113 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EV CHARGING BOOKING</title>
-  <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EV CHARGING BOOKING - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize:wght@400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Electrolize', sans-serif;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    body {
-      background-color: #0c1b2a;
-      color: white;
-    }
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 204, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
 
-    .Login-page {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
-    }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    .login-box {
-      background: #1e2e41;
-      padding: 2rem 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00CCFF;
-      width: 100%;
-      max-width: 400px;
-    }
+        .login-container {
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            background: rgba(30, 46, 65, 0.9);
+            border: 1px solid rgba(0, 204, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(0, 204, 255, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            
+        }
 
-    .login-box h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+        .login-container:hover {
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(0, 204, 255, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
 
-    .login-box label {
-      margin: 0.5rem 0 0.2rem;
-      display: block;
-      font-size: 1rem;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
 
-    .login-box input {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 1rem;
-    }
+        .logo {
+            font-family: 'Electrolize', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #00CCFF;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+        }
 
-    .login-box button {
-      width: 100%;
-      background-color: #00CCFF;
-      color: white;
-      padding: 0.7rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
+        .subtitle {
+            color: #a0b3c5;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
 
-    .login-box button:hover {
-      background-color: #00FFAB;
-      box-shadow:
-        0 0 20px #00FFAB,
-        0 0 40px #0066FF,
-        0 0 60px #00CCFF;
-      border: 2px solid #00CCFF;
-    }
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
 
-    .register-text {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
+        .form-label {
+            display: block;
+            color: #e1e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          
+        }
 
-    .register-text a {
-      color: #00CCFF;
-      text-decoration: underline;
-    }
-  </style>
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(15, 20, 25, 0.6);
+            border: 2px solid rgba(160, 179, 197, 0.2);
+            border-radius: 12px;
+            color: #e1e8f0;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+
+        }
+
+        .form-input::placeholder {
+            color: #6b7c93;
+            font-weight: 300;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #00CCFF;
+           
+            box-shadow: 
+                0 0 0 3px rgba(0, 204, 255, 0.1),
+                0 0 20px rgba(0, 204, 255, 0.3);
+            background: rgba(15, 20, 25, 0.8);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #00CCFF 0%, #0099CC 100%);
+            border: none;
+            border-radius: 12px;
+            color: #0f1419;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .login-button:hover {
+            background: linear-gradient(135deg, #00E6FF 0%, #00CCFF 100%);
+            box-shadow: 0 8px 25px rgba(0, 204, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .forgot-password a {
+            color: #00CCFF;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #00E6FF;
+            text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            opacity: 0.6;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6b7c93, transparent);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #6b7c93;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #a0b3c5;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: #00CCFF;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #00E6FF;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading animation for button */
+        .login-button.loading {
+            background: linear-gradient(135deg, #6b7c93 0%, #4a5568 100%);
+            cursor: not-allowed;
+        }
+
+        .login-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #0f1419;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="Login-page">
-    <div class="login-box">
-      <h2>Login</h2>
-      <form action="#" method="post">
-        <label for="username">Username</label>
-        <input type="text" placeholder="Username or Email" name="username" required>
+    <div class="login-container">
+        <div class="header">
+            <div class="logo">⚡ EV CHARGE HUB</div>
+            <div class="subtitle">Power Your Journey</div>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" name="password" required>
+        <form id="loginForm" class="login-form" method="post" action="#">
+            <div class="form-group">
+                <label class="form-label" for="username">Username or Email</label>
+                <input 
+                    type="text" 
+                    id="username"
+                    name="username"
+                    class="form-input" 
+                    placeholder="Enter your username or email"
+                    required
+                >
+            </div>
 
-        <button type="submit">Login</button>
-      </form>
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password"
+                    name="password"
+                    class="form-input" 
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-      <p class="register-text">
-        Don’t have an account? <a href="#">Register here</a>
-      </p>
+            <button type="submit" class="login-button" id="loginBtn">
+                Sign In
+            </button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#" onclick="handleForgotPassword()">Forgot your password?</a>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#" onclick="handleSignUp()">Sign up now</a>
+        </div>
     </div>
-  </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin();
+        });
+
+        function handleLogin() {
+            const loginBtn = document.getElementById('loginBtn');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validate inputs
+            if (!username || !password) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.textContent = '';
+            
+            // Simulate login process
+            setTimeout(() => {
+                loginBtn.classList.remove('loading');
+                loginBtn.textContent = 'Sign In';
+                
+                // Simulate successful login
+                if (username && password) {
+                    showAlert('Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        // In a real app, redirect to dashboard
+                        console.log('Redirecting to dashboard...');
+                    }, 1500);
+                } else {
+                    showAlert('Invalid credentials. Please try again.', 'error');
+                }
+            }, 2000);
+        }
+
+        function handleForgotPassword() {
+            showAlert('Password reset link would be sent to your email', 'info');
+        }
+
+        function handleSignUp() {
+            showAlert('Redirecting to sign up page...', 'info');
+        }
+
+        function showAlert(message, type) {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                ${type === 'success' ? 'background: linear-gradient(135deg, #10B981, #059669);' : ''}
+                ${type === 'error' ? 'background: linear-gradient(135deg, #EF4444, #DC2626);' : ''}
+                ${type === 'info' ? 'background: linear-gradient(135deg, #3B82F6, #2563EB);' : ''}
+            `;
+            alert.textContent = message;
+            
+            document.body.appendChild(alert);
+            
+            // Animate in
+            setTimeout(() => {
+                alert.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                alert.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(alert);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
-</html>
+
+</html>     
+  

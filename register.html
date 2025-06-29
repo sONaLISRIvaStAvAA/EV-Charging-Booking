@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EV CHARGING BOOKING</title>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Electrolize', sans-serif;
+    }
+
+    body {
+      background-color: #0c1b2a;
+      color: #1e2e41;
+    }
+
+    .Login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .login-box {
+      background: #1e2e41;
+      padding: 2rem 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00CCFF;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .login-box label {
+      margin: 0.5rem 0 0.2rem;
+      display: block;
+      font-size: 1rem;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    .login-box button {
+      width: 100%;
+      background-color: #00CCFF;
+      color: white;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #00FFAB;
+      box-shadow:
+        0 0 20px #00FFAB,
+        0 0 40px #0066FF,
+        0 0 60px #00CCFF;
+      border: 2px solid #00CCFF;
+    }
+
+    .register-text {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .register-text a {
+      color: #00CCFF;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="Login-page">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form action="#" method="post">
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username or Email" name="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" name="password" required>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <p class="register-text">
+        Don’t have an account? <a href="#">Register here</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
