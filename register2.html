@@ -1,0 +1,611 @@
+<?php
+session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once 'db.php'; // or 'conn.php' if you use that
+if (!$conn) {
+    die('Database connection failed: ' . mysqli_connect_error());
+}
+
+// If already logged in, redirect to intended page or final.php
+if (isset($_SESSION['user_id'])) {
+    $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
+    header("Location: $redirect");
+    exit();
+}
+
+$error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Use correct POST field names
+    $full_name = trim($_POST['fullName']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirmPassword'];
+
+    if ($full_name && $email && $password && $confirm_password) {
+        if ($password !== $confirm_password) {
+            $error = "Passwords do not match.";
+        } else {
+            // Check if email already exists
+            $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            if (mysqli_stmt_num_rows($stmt) > 0) {
+                $error = "Email already registered.";
+            } else {
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $stmt2 = mysqli_prepare($conn, "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
+                mysqli_stmt_bind_param($stmt2, "sss", $full_name, $email, $hashed_password);
+                if (mysqli_stmt_execute($stmt2)) {
+                    // Registration successful, redirect to login page
+                    header("Location: login.php?registered=1");
+                    exit();
+                } else {
+                    $error = "Registration failed. Please try again.";
+                }
+                mysqli_stmt_close($stmt2);
+            }
+            mysqli_stmt_close($stmt);
+        }
+    } else {
+        $error = "Please fill in all fields.";
+    }
+}
+?>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EV CHARGING BOOKING - Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize:wght@400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            overflow: auto;
+            height: 100vh;
+        }
+
+        .register-container {
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            background: rgba(30, 46, 65, 0.9);
+            border: 1px solid rgba(0, 204, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(0, 204, 255, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin: 2rem
+        }
+
+        .register-container:hover {
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(0, 204, 255, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            font-family: 'Electrolize', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #00CCFF;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+        }
+
+        .subtitle {
+            color: #a0b3c5;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: #e1e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(15, 20, 25, 0.6);
+            border: 2px solid rgba(160, 179, 197, 0.2);
+            border-radius: 12px;
+            color: #e1e8f0;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-input::placeholder {
+            color: #6b7c93;
+            font-weight: 300;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #00CCFF;
+            box-shadow:
+                0 0 0 3px rgba(0, 204, 255, 0.1),
+                0 0 20px rgba(0, 204, 255, 0.3);
+            background: rgba(15, 20, 25, 0.8);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #00CCFF 0%, #0099CC 100%);
+            border: none;
+            border-radius: 12px;
+            color: #0f1419;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .register-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .register-button:hover {
+            background: linear-gradient(135deg, #00E6FF 0%, #00CCFF 100%);
+            box-shadow: 0 8px 25px rgba(0, 204, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .register-button:hover::before {
+            left: 100%;
+        }
+
+        .register-button:active {
+            transform: translateY(0);
+        }
+
+        .terms-link {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #a0b3c5;
+            line-height: 1.4;
+        }
+
+        .terms-link a {
+            color: #00CCFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .terms-link a:hover {
+            color: #00E6FF;
+            text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            opacity: 0.6;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6b7c93, transparent);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #6b7c93;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .login-link {
+            text-align: center;
+            color: #a0b3c5;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: #00CCFF;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #00E6FF;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #6b7c93;
+        }
+
+        .strength-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(160, 179, 197, 0.2);
+            border-radius: 2px;
+            margin-top: 0.3rem;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            width: 0%;
+        }
+
+        .strength-weak .strength-fill {
+            background: #EF4444;
+            width: 30%;
+        }
+
+        .strength-medium .strength-fill {
+            background: #F59E0B;
+            width: 60%;
+        }
+
+        .strength-strong .strength-fill {
+            background: #10B981;
+            width: 100%;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .register-container {
+                margin: 1rem auto;
+                padding: 2rem 1.5rem;
+                max-width: 98vw;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading animation for button */
+        .register-button.loading {
+            background: linear-gradient(135deg, #6b7c93 0%, #4a5568 100%);
+            cursor: not-allowed;
+        }
+
+        .register-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #0f1419;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Email validation icon */
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7c93;
+            transition: color 0.3s ease;
+        }
+
+        .form-group.valid .input-icon {
+            color: #10B981;
+        }
+
+        .form-group.invalid .input-icon {
+            color: #EF4444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register-container">
+        <div class="header">
+            <div class="logo">⚡ EV CHARGE HUB</div>
+            <div class="subtitle">Join the Electric Revolution</div>
+        </div>
+
+        <form id="registerForm" class="register-form" method="post" action="register.php<?php echo isset($_GET['redirect']) ? '?redirect=' . urlencode($_GET['redirect']) : ''; ?>">
+            <input type="hidden" name="redirect" value="<?php echo isset($_GET['redirect']) ? htmlspecialchars($_GET['redirect']) : 'index.php'; ?>">
+            <div class="form-group">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    class="form-input"
+                    placeholder="Enter your full name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="Enter your email address"
+                    required>
+                <div class="input-icon">✉</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-input"
+                    placeholder="Create a strong password"
+                    required>
+                <div class="password-strength">
+                    <div class="strength-text">Password strength</div>
+                    <div class="strength-bar">
+                        <div class="strength-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    class="form-input"
+                    placeholder="Confirm your password"
+                    required>
+            </div>
+
+            <button type="submit" class="register-button" id="registerBtn">
+                Create Account
+            </button>
+        </form>
+
+
+        <?php if ($error): ?>
+            <div style="color:red;text-align:center;"> <?php echo $error; ?> </div>
+        <?php endif; ?>
+
+        <div class="terms-link">
+            By creating an account, you agree to our <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="login.php" onclick="handleLogin()">Sign in here</a>
+        </div>
+    </div>
+
+    <script>
+        // Email validation
+        document.getElementById('email').addEventListener('input', function() {
+            validateEmail(this);
+        });
+
+        // Password strength checker
+        document.getElementById('password').addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+        });
+
+        // Confirm password validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            validatePasswordMatch();
+        });
+
+        function validateEmail(input) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(input.value);
+            const formGroup = input.parentElement;
+
+            if (input.value === '') {
+                formGroup.classList.remove('valid', 'invalid');
+            } else if (isValid) {
+                formGroup.classList.add('valid');
+                formGroup.classList.remove('invalid');
+            } else {
+                formGroup.classList.add('invalid');
+                formGroup.classList.remove('valid');
+            }
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+
+            if (password.length === 0) {
+                strengthBar.className = 'strength-bar';
+                strengthText.textContent = 'Password strength';
+                return;
+            }
+
+            let strength = 0;
+
+            // Length check
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+
+            // Character variety checks
+            if (/[a-z]/.test(password)) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+            if (strength <= 2) {
+                strengthBar.className = 'strength-bar strength-weak';
+                strengthText.textContent = 'Weak password';
+            } else if (strength <= 4) {
+                strengthBar.className = 'strength-bar strength-medium';
+                strengthText.textContent = 'Medium password';
+            } else {
+                strengthBar.className = 'strength-bar strength-strong';
+                strengthText.textContent = 'Strong password';
+            }
+        }
+
+        function validatePasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirmInput = document.getElementById('confirmPassword');
+
+            if (confirmPassword === '') {
+                confirmInput.style.borderColor = 'rgba(160, 179, 197, 0.2)';
+                return;
+            }
+
+            if (password === confirmPassword) {
+                confirmInput.style.borderColor = '#10B981';
+            } else {
+                confirmInput.style.borderColor = '#EF4444';
+            }
+        }
+
+        function handleLogin() {
+            showAlert('Redirecting to login page...', 'info');
+        }
+
+        function showTerms() {
+            showAlert('Terms of Service would be displayed here', 'info');
+        }
+
+        function showPrivacy() {
+            showAlert('Privacy Policy would be displayed here', 'info');
+        }
+
+        function showAlert(message, type) {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+                ${type === 'success' ? 'background: linear-gradient(135deg, #10B981, #059669);' : ''}
+                ${type === 'error' ? 'background: linear-gradient(135deg, #EF4444, #DC2626);' : ''}
+                ${type === 'info' ? 'background: linear-gradient(135deg, #3B82F6, #2563EB);' : ''}
+            `;
+            alert.textContent = message;
+
+            document.body.appendChild(alert);
+
+            // Animate in
+            setTimeout(() => {
+                alert.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Remove after 4 seconds
+            setTimeout(() => {
+                alert.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(alert);
+                }, 300);
+            }, 4000);
+        }
+
+        // Add interactive effects
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
