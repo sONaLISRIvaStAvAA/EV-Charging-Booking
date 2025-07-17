@@ -242,7 +242,43 @@ Charging</br></h1>
       <a href="#">Contact us</a><br>
       <a href="#">Status</a>
     </div>
+ <div id="chatbot">
+    <img src="https://i.ibb.co/jvywtXS0/chatbot-removebg-preview.png" id="chat-icon" alt="Chatbot">
+    
+    <div id="chatbox">
+      <p>Hi! How can I help you today?</p>
+      <ul>
+        <li onclick="showAnswer('Just click on the search bar, enter your location and you will find EV stations near you!')">
+          How do I find EV stations near me?
+        </li>
+        <li onclick="showAnswer('Currently you cannot book a slot directly from the website but find your station for booking!')">
+          How can I book a charging slot?
+        </li>
+        <li onclick="showAnswer('Aww we deeply apologize for the inconvenience! Drop us your query at sonali200530@gmail.com to get your problem solved!')">
+          There are no EV charging stations near me!
+        </li>
+        <li onclick="showAnswer('We are constantly updating our database. If you have a specific location in mind, please let us know!')">
+          I found an EV station that is not listed!
+         <li onclick="showAnswer('We deeply apologize for the inconvenience! Please drop us your query at sonali200530@gmail.com and we will reply back to you in 24-48 hours!')">
+          Didnt find the answer to my question!
+        </li>
+      </ul>
+      <p id="bot-answer"></p>
+    </div>
+  </div>
 
+  <script>
+    const chatIcon = document.getElementById("chat-icon");
+    const chatBox = document.getElementById("chatbox");
+
+    chatIcon.addEventListener("click", () => {
+      chatBox.classList.toggle("show");
+    });
+
+    function showAnswer(text) {
+      document.getElementById("bot-answer").textContent = text;
+    }
+  </script>
 
 
 

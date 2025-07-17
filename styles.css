@@ -456,4 +456,72 @@ text-decoration: none;
 .about-ev a:hover {
   color: #00E0FF;
 }
+body{
+      font-family: 'Electrolize', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      color: white;
+}
 
+    #chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    #chatbot img {
+      width: 60px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #00ffe7;
+    }
+
+    #chatbox {
+      width: 300px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(14px);
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      display: none;
+    }
+
+    #chatbox.show {
+      display: block;
+    }
+
+    #chatbox p {
+      margin-top: 0;
+    }
+
+    #chatbox ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    #chatbox li {
+      margin-bottom: 10px;
+      cursor: pointer;
+      color: #00ffe7;
+      transition: color 0.2s ease;
+    }
+
+    #chatbox li:hover {
+      color: #ffffff;
+    }
+
+    #bot-answer {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #e0f7fa;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 8px;
+    }
+  
+  
